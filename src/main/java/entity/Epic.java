@@ -42,9 +42,6 @@ public class Epic extends Task {
     }
 
     private TaskStatus getEpicStatus() {
-//        if (subTaskList.isEmpty()) {
-//            return TaskStatus.NEW;
-//        }
         var subtaskStatuses = subTaskList.stream()
                 .map(Task::getStatus)
                 .collect(Collectors.toSet());
@@ -60,9 +57,9 @@ public class Epic extends Task {
     @Override
     public String toString() {
         var subTasksDesc = new StringBuffer();
-        subTaskList.forEach(subTask -> {
-            subTasksDesc.append(subTask.toString());
-        });
+        subTaskList.forEach(subTask ->
+            subTasksDesc.append(subTask.toString())
+        );
         return "Epic{" +
                 "subTaskList=" + subTasksDesc +
                 ", id=" + id +
@@ -71,4 +68,5 @@ public class Epic extends Task {
                 ", status=" + status +
                 '}';
     }
+
 }
