@@ -1,7 +1,5 @@
 package service;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -11,12 +9,14 @@ import entity.Epic;
 import entity.SubTask;
 import entity.Task;
 
+import repositories.TaskRepo;
+
 /**
  * Менеджер управления задачами.
  */
 public class TaskService {
 
-    private final Map<Integer, Task> taskMap = new HashMap<>();
+    private TaskRepo taskRepo = new TaskRepo();
 
     /**
      * Получение списка всех хранящихся задач.
@@ -24,14 +24,14 @@ public class TaskService {
      * @return Возвращает список всех созданных задач.
      */
     public List<Task> getAllTask() {
-        return new ArrayList<>(taskMap.values());
+        return taskRepo.getTaskLst();
     }
 
     /**
      * Производит удаление задач.
      */
     public void removeAllTasks() {
-        taskMap.clear();
+        taskRepo.clearTaskMap();
     }
 
     /**
@@ -42,7 +42,7 @@ public class TaskService {
      */
     public void createTask(String name, String description) {
         var newTask = new Task(name, description);
-        taskMap.put(newTask.getId(), newTask);
+        taskRepo.addTask(newTask);
     }
 
     /**
@@ -53,7 +53,7 @@ public class TaskService {
      */
     public void createEpic(String name, String description) {
         var newTask = new Epic(name, description);
-        taskMap.put(newTask.getId(), newTask);
+        taskRepo.addTask(newTask);
     }
 
     /**
@@ -74,7 +74,7 @@ public class TaskService {
         } else {
             var epic = (Epic) targetEpic.get();
             var subTask = epic.addSubTask(name, description);
-            taskMap.put(subTask.getId(), subTask);
+            taskRepo.addTask(subTask);
         }
     }
 
@@ -85,7 +85,7 @@ public class TaskService {
      * @return Возвращает задачу по её идентификатору.
      */
     public Optional<Task> getTaskById(Integer id) {
-        return Optional.ofNullable(taskMap.get(id));
+        return taskRepo.getTaskById(id);
     }
 
     /**
@@ -107,7 +107,7 @@ public class TaskService {
             } else if (task instanceof Epic) {
                 removeEpic((Epic) task);
             } else {
-                taskMap.remove(task.getId());
+                taskRepo.removeTask(task.getId());
             }
         }
     }
@@ -124,7 +124,7 @@ public class TaskService {
         } else if (updateTask instanceof Epic) {
             updateEpic((Epic) updateTask);
         } else {
-            taskMap.replace(updateTask.getId(), updateTask);
+            taskRepo.updateTask(updateTask);
         }
     }
 
@@ -155,27 +155,27 @@ public class TaskService {
     }
 
     private void removeSubTask(SubTask subTask) {
-        var epic = (Epic) taskMap.get(subTask.getEpicId());
+        var epic = (Epic) taskRepo.getTaskById(subTask.getEpicId()).get();
         epic.removeSubTask(subTask);
-        taskMap.remove(subTask.getId());
+        taskRepo.removeTask(subTask.getId());
     }
 
     private void removeEpic(Epic epic) {
         var subTaskList = new ArrayList<>(epic.getSubTaskList());
         subTaskList.forEach(this::removeSubTask);
-        taskMap.remove(epic.getId());
+        taskRepo.removeTask(epic.getId());
     }
 
     private void updateSubTask(SubTask subTask) {
-        var epic = (Epic) taskMap.get(subTask.getEpicId());
+        var epic = (Epic) taskRepo.getTaskById(subTask.getEpicId()).get();
         epic.updateSubTask(subTask);
         updateEpic(epic);
-        taskMap.replace(subTask.getId(), subTask);
+        taskRepo.updateTask(subTask);
     }
 
     private void updateEpic(Epic epic) {
         epic.updateTask(epic);
-        taskMap.replace(epic.getId(), epic);
+        updateTask(epic);
     }
 
 }

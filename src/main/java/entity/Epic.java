@@ -42,9 +42,6 @@ public class Epic extends Task {
     }
 
     private TaskStatus getEpicStatus() {
-//        if (subTaskList.isEmpty()) {
-//            return TaskStatus.NEW;
-//        }
         var subtaskStatuses = subTaskList.stream()
                 .map(Task::getStatus)
                 .collect(Collectors.toSet());

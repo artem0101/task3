@@ -75,7 +75,7 @@ public class Main {
         System.out.println("\nСписок после обновления подзадач:");
         printList(taskService.getAllTask());
 
-        /**
+        /*
          * Обновление эпика без статуса
          */
         var task5 = taskService.getTaskById(5).get();
