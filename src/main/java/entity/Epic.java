@@ -57,9 +57,9 @@ public class Epic extends Task {
     @Override
     public String toString() {
         var subTasksDesc = new StringBuffer();
-        subTaskList.forEach(subTask -> {
-            subTasksDesc.append(subTask.toString());
-        });
+        subTaskList.forEach(subTask ->
+            subTasksDesc.append(subTask.toString())
+        );
         return "Epic{" +
                 "subTaskList=" + subTasksDesc +
                 ", id=" + id +
@@ -68,4 +68,5 @@ public class Epic extends Task {
                 ", status=" + status +
                 '}';
     }
+
 }

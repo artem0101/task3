@@ -145,9 +145,9 @@ public class Main {
     }
 
     private static void printList(List<? extends Task> taskList) {
-        taskList.forEach(task -> {
-            System.out.println(task.toString());
-        });
+        taskList.forEach(task ->
+            System.out.println(task.toString())
+        );
     }
 
 }
