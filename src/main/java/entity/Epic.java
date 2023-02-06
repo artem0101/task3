@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Сущность эпик.
+ */
 public class Epic extends Task {
 
+    /*
+     * Список подзадач относящихся к эпику.
+     */
     private final List<SubTask> subTaskList;
 
     public Epic(String name, String description) {
@@ -41,19 +47,6 @@ public class Epic extends Task {
         this.status = getEpicStatus();
     }
 
-    private TaskStatus getEpicStatus() {
-        var subtaskStatuses = subTaskList.stream()
-                .map(Task::getStatus)
-                .collect(Collectors.toSet());
-        if (subtaskStatuses.contains(TaskStatus.IN_PROGRESS)) {
-            return TaskStatus.IN_PROGRESS;
-        } else if (subtaskStatuses.size() == 1 && subtaskStatuses.contains(TaskStatus.DONE)) {
-            return TaskStatus.DONE;
-        }
-
-        return TaskStatus.NEW;
-    }
-
     @Override
     public String toString() {
         var subTasksDesc = new StringBuffer();
@@ -67,6 +60,19 @@ public class Epic extends Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    private TaskStatus getEpicStatus() {
+        var subtaskStatuses = subTaskList.stream()
+                .map(Task::getStatus)
+                .collect(Collectors.toSet());
+        if (subtaskStatuses.contains(TaskStatus.IN_PROGRESS)) {
+            return TaskStatus.IN_PROGRESS;
+        } else if (subtaskStatuses.size() == 1 && subtaskStatuses.contains(TaskStatus.DONE)) {
+            return TaskStatus.DONE;
+        }
+
+        return TaskStatus.NEW;
     }
 
 }

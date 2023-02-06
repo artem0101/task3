@@ -2,12 +2,34 @@ package entity;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Сущность задачи.
+ */
 public class Task {
 
+    /*
+     * Счётчик идентификатра, обеспечивающий уникальность.
+     */
     private static final AtomicInteger idCounter = new AtomicInteger(0);
+
+    /*
+     * Идентификатор задачи.
+     */
     protected Integer id;
+
+    /*
+     * Наименование задачи.
+     */
     protected String name;
+
+    /*
+     * Описание задачи.
+     */
     protected String description;
+
+    /*
+     * Статус задачи.
+     */
     protected TaskStatus status;
 
     public Task(String name, String description) {
