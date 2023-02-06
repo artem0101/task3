@@ -2,6 +2,7 @@ import java.util.List;
 
 import entity.Task;
 import entity.TaskStatus;
+
 import service.TaskService;
 
 public class Main {
@@ -20,6 +21,7 @@ public class Main {
         taskService.createTask("Простая задача 2", "2");
         taskService.createTask("Простая задача 3", "3");
         System.out.println("\nСписок после добавления задач:");
+
         printList(taskService.getAllTask());
         /*
          * Обновление простых задач.
@@ -30,11 +32,13 @@ public class Main {
         taskService.updateTask(task3);
         System.out.println("\nСписок после обновления задач:");
         printList(taskService.getAllTask());
+
         /*
          * Предоставление задачи по идентификатору.
          */
         System.out.println("\nПредоставление простой задачи:");
         System.out.println(taskService.getTaskById(2).toString());
+
         /*
          * Удаление простой задачи.
          */
@@ -42,6 +46,7 @@ public class Main {
         taskService.removeById(1);
         System.out.println("\nСписок после удаления задачи:");
         printList(taskService.getAllTask());
+
         /*
         * Создание подзадачи без эпика.
         */
@@ -85,7 +90,7 @@ public class Main {
         System.out.println("\nСписок после обновления эпика:");
         printList(taskService.getAllTask());
 
-        /**
+        /*
          * Обновление статуса эпика как выполненного.
          */
         var task6 = taskService.getTaskById(6).get();
@@ -139,7 +144,7 @@ public class Main {
         /*
          * Удаление всех задач.
          */
-        taskService.getAllTask();
+        taskService.removeAllTasks();
         System.out.println("\nСписок после удаления всех задач:");
         printList(taskService.getAllTask());
     }
