@@ -175,7 +175,6 @@ public class TaskService {
 
     private void updateEpic(Epic epic) {
         epic.updateTask(epic);
-        updateTask(epic);
     }
 
 }

@@ -16,12 +16,12 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description);
-        this.subTaskList = new ArrayList<>();
+        subTaskList = new ArrayList<>();
     }
 
-    public Task addSubTask(String name, String description) {
+    public SubTask addSubTask(String name, String description) {
         var subTask = new SubTask(name, description, getId());
-        subTaskList.add(subTask);
+        this.subTaskList.add(subTask);
         return subTask;
     }
 
@@ -29,9 +29,9 @@ public class Epic extends Task {
         return subTaskList;
     }
 
-    public void updateSubTask(Task task) {
-        var updatedTask = subTaskList.get(subTaskList.indexOf(task));
-        updatedTask.updateTask(task);
+    public void updateSubTask(SubTask subTask) {
+        var updatedTask = subTaskList.get(subTaskList.indexOf(subTask));
+        updatedTask.updateTask(subTask);
         updateTask(this);
     }
 
@@ -64,7 +64,7 @@ public class Epic extends Task {
 
     private TaskStatus getEpicStatus() {
         var subtaskStatuses = subTaskList.stream()
-                .map(Task::getStatus)
+                .map(SubTask::getStatus)
                 .collect(Collectors.toSet());
         if (subtaskStatuses.contains(TaskStatus.IN_PROGRESS)) {
             return TaskStatus.IN_PROGRESS;

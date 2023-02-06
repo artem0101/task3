@@ -1,10 +1,16 @@
 package repositories;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Optional;
 
 import entity.Task;
 
-
+/**
+ * Репозиторий хранения задач.
+ */
 public class TaskRepo {
 
     private final Map<Integer, Task> taskMap = new HashMap<>();
