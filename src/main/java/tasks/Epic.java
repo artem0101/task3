@@ -26,7 +26,7 @@ public class Epic extends Task {
     }
 
     public static class EpicBuilder {
-        private Epic newEpic;
+        private final Epic newEpic;
 
         public EpicBuilder() {
             this.newEpic = new Epic();

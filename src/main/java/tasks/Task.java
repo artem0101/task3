@@ -66,7 +66,7 @@ public class Task {
     }
 
     public static class TaskBuilder {
-        private Task newTask;
+        private final Task newTask;
 
         public TaskBuilder() {
             this.newTask = new Task();

@@ -26,7 +26,7 @@ public class Subtask extends Task {
     }
 
     public static class SubtaskBuilder {
-        private Subtask newSubtask;
+        private final Subtask newSubtask;
 
         public SubtaskBuilder() {
             this.newSubtask = new Subtask();

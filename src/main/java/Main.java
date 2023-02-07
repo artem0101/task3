@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) {
         var taskManager = new InMemoryTaskManager();
 
-
         System.out.println("\nСписок вначале:");
         printList(taskManager.getAllTasks());
         printList(taskManager.getAllEpics());
@@ -97,7 +96,6 @@ public class Main {
         /*
          * Обновление подзадачи.
          */
-
         subtask8.setName("Обновлённая задача 8");
         subtask8.setStatus(TaskStatus.IN_PROGRESS);
         taskManager.updateSubtask(subtask8);
