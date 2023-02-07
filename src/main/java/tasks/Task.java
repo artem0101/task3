@@ -1,16 +1,9 @@
-package entity;
-
-import java.util.concurrent.atomic.AtomicInteger;
+package tasks;
 
 /**
  * Сущность задачи.
  */
 public class Task {
-
-    /*
-     * Счётчик идентификатра, обеспечивающий уникальность.
-     */
-    private static final AtomicInteger idCounter = new AtomicInteger(0);
 
     /*
      * Идентификатор задачи.
@@ -32,12 +25,6 @@ public class Task {
      */
     protected TaskStatus status;
 
-    public Task(String name, String description) {
-        this.id = idCounter.addAndGet(1);
-        this.name = name;
-        this.description = description;
-        this.status = TaskStatus.NEW;
-    }
 
     public int getId() {
         return id;
@@ -67,11 +54,6 @@ public class Task {
         this.status = status;
     }
 
-    public void updateTask(Task task) {
-        this.name = task.getName();
-        this.description = task.getDescription();
-        this.status = task.getStatus();
-    }
 
     @Override
     public String toString() {
@@ -81,6 +63,34 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public static class TaskBuilder {
+        private Task newTask;
+
+        public TaskBuilder() {
+            this.newTask = new Task();
+            this.newTask.status = TaskStatus.NEW;
+        }
+
+        public TaskBuilder withId(Integer id) {
+            newTask.id = id;
+            return this;
+        }
+
+        public TaskBuilder withName(String name) {
+            newTask.name = name;
+            return this;
+        }
+        public TaskBuilder withDescription(String description) {
+            newTask.description = description;
+            return this;
+        }
+
+        public Task build() {
+            return newTask;
+        }
+
     }
 
 }
